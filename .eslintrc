@@ -1,7 +1,13 @@
 {
+  "root": true,
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "prettier/recommended"
-  ]
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {},
+  "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
 }
