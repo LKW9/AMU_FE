@@ -1,5 +1,3 @@
-import flowbite from 'flowbite/plugin'
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -10,5 +8,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [flowbite],
+  plugins: [],
 }
