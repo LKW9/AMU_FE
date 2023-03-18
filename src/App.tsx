@@ -1,5 +1,3 @@
-import AmuFooter from './components/AmuFooter'
-import AmuNavBar from './components/AmuNavBar'
 import SearchInput from './components/Search'
 
 function App() {
