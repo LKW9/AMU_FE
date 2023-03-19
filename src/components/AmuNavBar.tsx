@@ -94,7 +94,7 @@ export default function AmuNavBar() {
                   <Menu.Item>
                     {({ active }) => (
                       <Link
-                        to="#"
+                        to="/main/post"
                         className={classNames(
                           active
                             ? 'bg-gray-100 text-gray-900'
@@ -109,7 +109,7 @@ export default function AmuNavBar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href="#"
+                        href="/main/mywiki"
                         className={classNames(
                           active
                             ? 'bg-gray-100 text-gray-900'

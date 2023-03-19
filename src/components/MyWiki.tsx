@@ -1,14 +1,24 @@
 import { Button } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 
-export default function SearchResult() {
+export default function MyWiki() {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 mb-10">
       <Link to="/main/3">
         <section>
-          <h1 className="my-3 text-3xl font-semibold text-gray-800 capitalize dark:text-white">
-            Block of Ui kit collections
-          </h1>
+          <div className="flex flex-row">
+            <h1 className="text-3xl font-semibold text-gray-800 capitalize dark:text-white">
+              Block of Ui kit collections
+            </h1>
+            <div className="flex items-center justify-center ml-3">
+              <span className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                Edit
+              </span>
+              <span className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                Delete
+              </span>
+            </div>
+          </div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec
             velit mollis, sollicitudin dui nec, efficitur sapien. Mauris porta

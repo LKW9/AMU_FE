@@ -8,17 +8,16 @@ function handleSubmit() {
 export default function Home() {
   return (
     <section className="bg-white dark:bg-gray-900 h-screen">
-      <div className="h-screen grid grid-flow-row auto-rows-max place-content-center gap-5 ">
-        <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <h1 className="text-6xl font-semibold text-center text-gray-800 capitalize dark:text-white mb-10">
           AMU <span className="text-blue-500 ">Wiki</span>
         </h1>
-        {/* <div className="w-screen p-5"> */}
         <Form
           className="flex justify-center w-screen"
-          action="/search"
+          action="/main/search"
           method="get"
         >
-          <div className="relative w-[50%]">
+          <div className="relative w-[40%]">
             <input
               type="text"
               id="simple-search"
@@ -49,7 +48,6 @@ export default function Home() {
             <span className="sr-only">Search</span>
           </button>
         </Form>
-        {/* </div> */}
       </div>
     </section>
   )
