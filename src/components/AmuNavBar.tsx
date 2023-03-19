@@ -121,7 +121,7 @@ export default function AmuNavBar() {
                       </a>
                     )}
                   </Menu.Item>
-                  <Form method="post" action="#">
+                  {/* <Form method="post" action="#">
                     <Menu.Item>
                       {({ active }) => (
                         <button
@@ -137,7 +137,7 @@ export default function AmuNavBar() {
                         </button>
                       )}
                     </Menu.Item>
-                  </Form>
+                  </Form> */}
                   <Menu.Item>
                     {({ active }) => (
                       <Link
