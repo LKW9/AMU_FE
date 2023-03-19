@@ -3,7 +3,7 @@ import { Footer } from 'flowbite-react'
 export default function AmuFooter() {
   return (
     <div className="mt-auto">
-      <footer className="bg-white dark:bg-gray-900">
+      <footer className="bg-white">
         <div className="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
           <a href="#">
             <img
@@ -13,14 +13,14 @@ export default function AmuFooter() {
             />
           </a>
 
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="text-sm text-gray-600">
             © Copyright 2021. All Rights Reserved.
           </p>
 
           <div className="flex -mx-2">
             <a
               href="#"
-              className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              className="mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500"
               aria-label="Reddit"
             >
               <svg
@@ -35,7 +35,7 @@ export default function AmuFooter() {
 
             <a
               href="#"
-              className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              className="mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500"
               aria-label="Facebook"
             >
               <svg
@@ -50,7 +50,7 @@ export default function AmuFooter() {
 
             <a
               href="#"
-              className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              className="mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500"
               aria-label="Github"
             >
               <svg

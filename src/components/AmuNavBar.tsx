@@ -12,11 +12,11 @@ export default function AmuNavBar() {
 
   return (
     <div className="sticky top-0 mt-5 mb-10">
-      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded ">
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <div>
             <Link to="/" className="flex items-center">
-              <span className="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">
+              <span className="self-center text-3xl font-semibold whitespace-nowrap">
                 AMU <span className="text-blue-500 ">Wiki</span>
               </span>
             </Link>
@@ -40,7 +40,7 @@ export default function AmuNavBar() {
 
             <input
               type="text"
-              className="min-w-full lg:w-96 py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+              className="min-w-full lg:w-96 py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
               placeholder="Search"
             />
           </div>
