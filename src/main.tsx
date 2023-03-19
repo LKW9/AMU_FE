@@ -17,7 +17,7 @@ import SignUp from './pages/SignUp'
 import Wiki from './pages/Wiki'
 import WikiDetail from './pages/WikiDetail'
 import Root from './routes/Root'
-import wikiAction from './routes/Wiki'
+import wikiAction from './routes/wiki'
 
 const router = createBrowserRouter(
   [
