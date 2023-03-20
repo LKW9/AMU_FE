@@ -1,13 +1,9 @@
+import { useLoaderData } from 'react-router-dom'
 import SearchResult from '../components/SearchResult'
 
 export function SearchList() {
-  // const { data } = useLoaderData()
-  return (
-    <div className="p-16 xl:px-64">
-      <SearchResult />
-      <SearchResult />
-      <SearchResult />
-      <SearchResult />
-    </div>
-  )
+  const { data } = useLoaderData()
+  console.log('## data!', data)
+  const list = data.map((d) => <SearchResult post={d} />)
+  return <div className="p-16 xl:px-64">{list}</div>
 }

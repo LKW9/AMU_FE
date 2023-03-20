@@ -16,6 +16,7 @@ import { SearchList } from './pages/SearchList'
 import SignUp from './pages/SignUp'
 import Wiki from './pages/Wiki'
 import WikiDetail from './pages/WikiDetail'
+import loginAction from './routes/login'
 import Root from './routes/Root'
 import wikiAction from './routes/wiki'
 
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
       // },
       action: async ({ request }) => {
         // TODO mutation data (form 데이터 전송 뒤 등)
+        fetch('/api/google')
         return
       },
       errorElement: <ErrorBoundary />,
@@ -41,14 +43,21 @@ const router = createBrowserRouter(
         {
           path: 'search',
           element: <SearchList />,
-          loader: async () => {
-            return {
-              data: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec velit mollis, sollicitudin dui nec, efficitur sapien. Mauris porta aliquam odio, sit amet viverra ligula blandit sed. Quisque cursus pulvinar urna, eu malesuada est dictum sed. Vestibulum ultrices efficitur quam. Nam ut volutpat justo. Quisque dolor est, volutpat eget odio id, rutrum varius orci. Maecenas euismod vestibulum velit a condimentum. Aliquam bibendum commodo enim at tristique. Etiam rutrum dapibus tristique. Nulla semper placerat lacinia.',
-            }
+          loader: async ({ request }) => {
+            const res = await fetch(`/api/amuwiki/search/google`, {
+              method: 'get',
+            })
+            if (!res.ok) throw res
+            const data = await res.json()
+            return { data }
           },
           action: async ({ request }) => {
-            console.log('##', request)
-            return '검색결과'
+            const res = await fetch(`/api/amuwiki/search/google`, {
+              method: 'get',
+              body: await request.formData(),
+            })
+            if (!res.ok) throw res
+            return { ok: true }
           },
         },
         { path: ':wikiId', element: <WikiDetail /> },
@@ -60,7 +69,7 @@ const router = createBrowserRouter(
         { path: 'mywiki', element: <MyWikiList /> },
       ],
     },
-    { path: '/login', element: <Login /> },
+    { path: '/login', element: <Login />, action: loginAction },
     { path: '/signup', element: <SignUp /> },
     { path: '/profile', element: <Profile /> },
   ],

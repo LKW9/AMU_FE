@@ -6,4 +6,13 @@ import postcss from './postcss.config.cjs'
 export default defineConfig({
   plugins: [react()],
   css: { postcss },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://54.180.137.224',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })
