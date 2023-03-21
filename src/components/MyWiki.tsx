@@ -7,14 +7,14 @@ export default function MyWiki() {
       <Link to="/main/3">
         <section>
           <div className="flex flex-row">
-            <h1 className="text-3xl font-semibold text-gray-800 capitalize dark:text-white">
+            <h1 className="text-3xl font-semibold text-gray-800 capitalize">
               Block of Ui kit collections
             </h1>
             <div className="flex items-center justify-center ml-3">
-              <span className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+              <span className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
                 Edit
               </span>
-              <span className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+              <span className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
                 Delete
               </span>
             </div>

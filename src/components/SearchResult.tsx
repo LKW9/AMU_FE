@@ -6,7 +6,7 @@ export default function SearchResult() {
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 mb-10">
       <Link to="/main/3">
         <section>
-          <h1 className="my-3 text-3xl font-semibold text-gray-800 capitalize dark:text-white">
+          <h1 className="my-3 text-3xl font-semibold text-gray-800 capitalize">
             Block of Ui kit collections
           </h1>
           <p>
