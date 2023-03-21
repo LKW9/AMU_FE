@@ -1,16 +1,17 @@
 import { ActionFunctionArgs, redirect } from 'react-router-dom'
 import { setToken } from '../hooks/LoginHook'
 
-export default async function loginAction({ request }: ActionFunctionArgs) {
+export default async function signupAction({ request }: ActionFunctionArgs) {
   switch (request.method) {
     case 'POST': {
       console.log('## request', request)
       let formData = await request.formData()
       const email = formData.get('email')
+      const nickname = formData.get('nickname')
       const password = formData.get('password')
-      const body = { email, password }
+      const body = { email, nickname, password }
 
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth/signup', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -19,7 +20,9 @@ export default async function loginAction({ request }: ActionFunctionArgs) {
       })
 
       console.log('## res', res)
-      console.log('* header', res.headers.get('cookie'))
+      // TODO error modal 생성
+      if (!res.ok) return location.reload()
+      // console.log('* header', res.headers.get('cookie'))
 
       // setToken('tokendkffjflwkefjwe')
 

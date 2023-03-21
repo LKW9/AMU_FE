@@ -1,5 +1,5 @@
 import { Button } from 'flowbite-react'
-import { Link } from 'react-router-dom'
+import { Form, Link } from 'react-router-dom'
 
 export default function SignUp() {
   return (
@@ -18,7 +18,11 @@ export default function SignUp() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Create and account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <Form
+              className="space-y-4 md:space-y-6"
+              action="/signup"
+              method="post"
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -26,12 +30,46 @@ export default function SignUp() {
                 >
                   Your email
                 </label>
+                <div className="flex">
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="name@company.com"
+                    required
+                  />
+                  <Button type="submit">verify</Button>
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Verify your email
+                </label>
                 <input
                   type="email"
-                  name="email"
-                  id="email"
+                  name="verify-email"
+                  id="verify-email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="name@company.com"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="nickname"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Your nickname
+                </label>
+                <input
+                  type="text"
+                  name="nickname"
+                  id="nickname"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   required
                 />
               </div>
@@ -59,7 +97,7 @@ export default function SignUp() {
                   Confirm password
                 </label>
                 <input
-                  type="confirm-password"
+                  type="password"
                   name="confirm-password"
                   id="confirm-password"
                   placeholder="••••••••"
@@ -104,7 +142,7 @@ export default function SignUp() {
                   Login here
                 </Link>
               </p>
-            </form>
+            </Form>
           </div>
         </div>
       </div>

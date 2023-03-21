@@ -3,6 +3,8 @@ import { Form, Link, useFormAction } from 'react-router-dom'
 import AmuNavBar from '../components/AmuNavBar'
 import loginAction from '../routes/login'
 
+
+
 export default function Login() {
   return (
     <section className="bg-gray-50">
@@ -20,7 +22,11 @@ export default function Login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2x">
               Sign in to your account
             </h1>
-            <Form className="space-y-4 md:space-y-6" method="post">
+            <Form
+              className="space-y-4 md:space-y-6"
+              method="post"
+              action="/login"
+            >
               <div>
                 <label
                   htmlFor="email"

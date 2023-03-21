@@ -18,6 +18,7 @@ import Wiki from './pages/Wiki'
 import WikiDetail from './pages/WikiDetail'
 import loginAction from './routes/login'
 import Root from './routes/Root'
+import signupAction from './routes/signup'
 import wikiAction from './routes/wiki'
 
 const router = createBrowserRouter(
@@ -31,7 +32,7 @@ const router = createBrowserRouter(
       // },
       action: async ({ request }) => {
         // TODO mutation data (form 데이터 전송 뒤 등)
-        fetch('/api/google')
+        // fetch('/api/go')
         return
       },
       errorElement: <ErrorBoundary />,
@@ -44,23 +45,43 @@ const router = createBrowserRouter(
           path: 'search',
           element: <SearchList />,
           loader: async ({ request }) => {
-            const res = await fetch(`/api/amuwiki/search/google`, {
+            const url = new URL(request.url)
+            const query = url.searchParams.get('q')
+            const res = await fetch(`/api/amuwiki/search?query=${query}`, {
               method: 'get',
             })
             if (!res.ok) throw res
             const data = await res.json()
-            return { data }
+            return data
           },
-          action: async ({ request }) => {
-            const res = await fetch(`/api/amuwiki/search/google`, {
-              method: 'get',
-              body: await request.formData(),
+          action: async ({ request }) => {},
+        },
+        {
+          path: ':wikiId',
+          element: <WikiDetail />,
+          loader: async ({ request }) => {
+            const url = new URL(request.url)
+            // console.log('** url', url.pathname.split('/')[2])
+
+            const id = url.pathname.split('/')[2]
+
+            const body = JSON.stringify({
+              '_id': id,
             })
+
+            const res = await fetch(`/api/post/detail`, {
+              method: 'post',
+              body,
+            })
+
+            // console.log('$$ res', await res.text())
+
             if (!res.ok) throw res
-            return { ok: true }
+            const data = await res.json()
+            console.log('%%res', data)
+            return data
           },
         },
-        { path: ':wikiId', element: <WikiDetail /> },
         {
           path: 'post',
           element: <Wiki />,
@@ -70,8 +91,23 @@ const router = createBrowserRouter(
       ],
     },
     { path: '/login', element: <Login />, action: loginAction },
-    { path: '/signup', element: <SignUp /> },
-    { path: '/profile', element: <Profile /> },
+    {
+      path: '/signup',
+      element: <SignUp />,
+      action: signupAction,
+    },
+    {
+      path: '/profile',
+      element: <Profile />,
+      action: async ({ request }) => {
+        const body = await request.formData()
+        const res = await fetch('/api/login', {
+          method: 'post',
+          body,
+        })
+        return { data: '로그인!' }
+      },
+    },
   ],
   { basename: '/' }
 )
