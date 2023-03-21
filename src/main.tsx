@@ -32,7 +32,6 @@ const router = createBrowserRouter(
       // },
       action: async ({ request }) => {
         // TODO mutation data (form 데이터 전송 뒤 등)
-        // fetch('/api/go')
         return
       },
       errorElement: <ErrorBoundary />,
@@ -71,6 +70,9 @@ const router = createBrowserRouter(
 
             const res = await fetch(`/api/post/detail`, {
               method: 'post',
+              headers: {
+                'Content-Type': 'application/json',
+              },
               body,
             })
 
@@ -79,7 +81,7 @@ const router = createBrowserRouter(
             if (!res.ok) throw res
             const data = await res.json()
             console.log('%%res', data)
-            return data
+            return data[0]
           },
         },
         {
