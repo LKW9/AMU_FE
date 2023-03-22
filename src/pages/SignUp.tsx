@@ -1,7 +1,55 @@
 import { Button } from 'flowbite-react'
+import { useEffect, useState } from 'react'
 import { Form, Link } from 'react-router-dom'
 
 export default function SignUp() {
+  const [isVerified, setIsVerified] = useState(false)
+  const [email, setEmail] = useState('')
+  const [code, setCode] = useState('')
+
+  async function handleSendEmail(e: any) {
+    console.log('##', e)
+    e.preventDefault()
+    console.log('email', email)
+
+    // const [isLoading, setIsLoading] = useState(false);
+    // prevent redirect
+
+    // setIsLoading(true);
+
+    // do something asynchronous that takes time, this function is just an example
+    const res = await fetch('/api/signup/email', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+
+    console.log('$res', res)
+
+    // reset form and loading state
+    // setEmail('');
+    // setIsLoading(false);
+  }
+
+  async function handleVerifyEmail(e: any) {
+    e.preventDefault()
+
+    const body = { email, code }
+    console.log('$$ body', body)
+
+    const res = await fetch('/api/signup/verifying', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    console.log('$res', res)
+  }
+
   return (
     <section className="bg-gray-50">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -37,26 +85,34 @@ export default function SignUp() {
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="name@company.com"
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
-                  <Button type="submit">verify</Button>
+                  <Button type="button" onClick={handleSendEmail}>
+                    Verify
+                  </Button>
                 </div>
               </div>
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="code"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
-                  Verify your email
+                  Verification code
                 </label>
-                <input
-                  type="email"
-                  name="verify-email"
-                  id="verify-email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="name@company.com"
-                  required
-                />
+                <div className="flex">
+                  <input
+                    type="text"
+                    name="code"
+                    id="code"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    onChange={(e) => setCode(e.target.value)}
+                    required
+                  />
+                  <Button type="button" onClick={handleVerifyEmail}>
+                    Confirm
+                  </Button>
+                </div>
               </div>
               <div>
                 <label

@@ -1,7 +1,8 @@
+import { Cookies } from 'react-cookie'
 import { ActionFunctionArgs, redirect } from 'react-router-dom'
-import { setToken } from '../hooks/LoginHook'
 
 export default async function loginAction({ request }: ActionFunctionArgs) {
+  const cookie = new Cookies()
   switch (request.method) {
     case 'POST': {
       console.log('## request', request)
@@ -19,7 +20,18 @@ export default async function loginAction({ request }: ActionFunctionArgs) {
       })
 
       console.log('## res', res)
-      console.log('* header', res.headers.get('cookie'))
+      const encodedCookie = await res.text()
+
+      // console.log('rrr', encodedCookie)
+      const decodedCookie = decodeURI(encodedCookie)
+
+      cookie.set('cookie', decodedCookie, { path: '/' })
+
+      // localStorage.setItem(
+      //   'cookie',
+      //   'Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiY2FsbWVyYW1pZ291QGdtYWlsLmNvbSJ9LCJpYXQiOjE2Nzk0OTE2MjQsImV4cCI6MTY3OTU3ODAyNH0.McvjzokGymdffzY7dQnqRzKm11qSHC3fFcF75vRqDHM'
+      // )
+      // console.log('* header', res.headers.get('cookie'))
 
       // setToken('tokendkffjflwkefjwe')
 

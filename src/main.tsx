@@ -1,4 +1,5 @@
 import React from 'react'
+import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom/client'
 import {
   BrowserRouter,
@@ -60,7 +61,6 @@ const router = createBrowserRouter(
           element: <WikiDetail />,
           loader: async ({ request }) => {
             const url = new URL(request.url)
-            // console.log('** url', url.pathname.split('/')[2])
 
             const id = url.pathname.split('/')[2]
 
@@ -88,8 +88,24 @@ const router = createBrowserRouter(
           path: 'post',
           element: <Wiki />,
           action: wikiAction,
+          loader: async ({ request }) => {
+            // TODO edit 동작시 미리 fetch 실행해야함
+            const res = await fetch('/api/post/mypost')
+            const data = await res.json()
+
+            return data
+          },
         },
-        { path: 'mywiki', element: <MyWikiList /> },
+        {
+          path: 'mywiki',
+          element: <MyWikiList />,
+          loader: async ({ request }) => {
+            const res = await fetch('/api/post/mypost')
+            const data = await res.json()
+
+            return data
+          },
+        },
       ],
     },
     { path: '/login', element: <Login />, action: loginAction },
@@ -114,7 +130,9 @@ const router = createBrowserRouter(
   { basename: '/' }
 )
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <CookiesProvider>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </CookiesProvider>
 )

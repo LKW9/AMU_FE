@@ -3,13 +3,19 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Form, Link } from 'react-router-dom'
 import { Menu, Transition } from '@headlessui/react'
 import { Button } from 'flowbite-react'
+import { getCookie, removeCookie } from '../util/Cookie'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
+function handleLogout() {
+  removeCookie()
+}
+
 export default function AmuNavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const isLoginUser = getCookie()
 
   return (
     <div className="sticky top-0 mt-5 mb-10">
@@ -81,56 +87,63 @@ export default function AmuNavBar() {
             >
               <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1 divide-y">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        to="#"
-                        className={classNames(
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
+                  {isLoginUser ? (
+                    <>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="#"
+                            className={classNames(
+                              active
+                                ? 'bg-gray-100 text-gray-900'
+                                : 'text-gray-700',
+                              'block px-4 py-2 text-sm'
+                            )}
+                          >
+                            Profile
+                          </Link>
                         )}
-                      >
-                        Account settings
-                      </Link>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        to="/main/post"
-                        className={classNames(
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/main/post"
+                            className={classNames(
+                              active
+                                ? 'bg-gray-100 text-gray-900'
+                                : 'text-gray-700',
+                              'block px-4 py-2 text-sm'
+                            )}
+                          >
+                            New Wiki
+                          </Link>
                         )}
-                      >
-                        New Wiki
-                      </Link>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="/main/mywiki"
-                        className={classNames(
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="/main/mywiki"
+                            className={classNames(
+                              active
+                                ? 'bg-gray-100 text-gray-900'
+                                : 'text-gray-700',
+                              'block px-4 py-2 text-sm'
+                            )}
+                          >
+                            My Wiki
+                          </a>
                         )}
-                      >
-                        My Wiki
-                      </a>
-                    )}
-                  </Menu.Item>
-                  {/* <Form method="post" action="#">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          type="submit"
+                      </Menu.Item>{' '}
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  <Menu.Item>
+                    {({ active }) =>
+                      isLoginUser ? (
+                        <Link
+                          to="/"
+                          onClick={handleLogout}
                           className={classNames(
                             active
                               ? 'bg-gray-100 text-gray-900'
@@ -138,25 +151,22 @@ export default function AmuNavBar() {
                             'block w-full px-4 py-2 text-left text-sm'
                           )}
                         >
-                          Sign out
-                        </button>
-                      )}
-                    </Menu.Item>
-                  </Form> */}
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        to="/login"
-                        className={classNames(
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block w-full px-4 py-2 text-left text-sm'
-                        )}
-                      >
-                        Log in
-                      </Link>
-                    )}
+                          Log out
+                        </Link>
+                      ) : (
+                        <Link
+                          to="/login"
+                          className={classNames(
+                            active
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-700',
+                            'block w-full px-4 py-2 text-left text-sm'
+                          )}
+                        >
+                          Log in
+                        </Link>
+                      )
+                    }
                   </Menu.Item>
                 </div>
               </Menu.Items>

@@ -1,15 +1,23 @@
 import { Alert } from 'flowbite-react'
 import { Form } from 'react-router-dom'
 import { getToken } from '../hooks/LoginHook'
+import { Cookies, useCookies } from 'react-cookie'
+import { getCookie } from '../util/Cookie'
 
-function handleSubmit() {
-  alert('submit!!1')
-}
+export default function Home() {
+  const loginCookie = getCookie()
 
-export default function Home({ token }: any) {
+  // const decodedCookie = decodeURI(
+  //   'Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiZGtkbGRtbHJtc3BAbmF2ZXIuY29tIn0sImlhdCI6MTY3OTQ5MTUxNCwiZXhwIjoxNjc5NTc3OTE0fQ.V3eueT9z0xwaSJdZFeV1NRtpW2HJmVku39CovziZhEM'
+  // )
+
+  // setCookie('cookie', decodedCookie, { path: '/'})
+
+  // const cookieValue = getCookie('cookieName');
+
   return (
     <div>
-      <span>로그인 상태: {token}</span>
+      <span>로그인 상태: {loginCookie}</span>
       <section className="bg-white h-screen">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <h1 className="text-6xl font-semibold text-center text-gray-800 capitalize mb-10">

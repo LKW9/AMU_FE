@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://54.180.137.224',
+        target: 'https://amuwiki.co.kr',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

@@ -11,7 +11,7 @@ export default async function signupAction({ request }: ActionFunctionArgs) {
       const password = formData.get('password')
       const body = { email, nickname, password }
 
-      const res = await fetch('/api/auth/signup', {
+      const res = await fetch('/api/signup/verified', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
