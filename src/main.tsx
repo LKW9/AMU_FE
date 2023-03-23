@@ -1,12 +1,7 @@
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom/client'
-import {
-  BrowserRouter,
-  createBrowserRouter,
-  RouteObject,
-  RouterProvider,
-} from 'react-router-dom'
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import { ErrorBoundary } from './pages/ErrorBoundary'
@@ -76,25 +71,71 @@ const router = createBrowserRouter(
               body,
             })
 
-            // console.log('$$ res', await res.text())
+            if (!res.ok) throw res
+            const data = await res.json()
+            return data[0]
+          },
+        },
+        {
+          path: 'post/:wikiId',
+          element: <Wiki />,
+          loader: async ({ request }) => {
+            const url = new URL(request.url)
+            console.log('url#########', url)
+
+            const id = url.pathname.split('/')[3]
+            console.log('Reid', id)
+
+            const body = JSON.stringify({
+              '_id': id,
+            })
+
+            const res = await fetch(`/api/post/detail`, {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body,
+            })
 
             if (!res.ok) throw res
             const data = await res.json()
-            console.log('%%res', data)
             return data[0]
+          },
+          action: async ({ request }) => {
+            const url = new URL(request.url)
+            console.log('수정url#########', url)
+
+            const id = url.pathname.split('/')[3]
+            console.log('Reid', id)
+
+            const formData = await request.formData()
+            const title = formData.get('title')
+            const text = formData.get('description')
+
+            const body = JSON.stringify({
+              '_id': id,
+              title,
+              text,
+            })
+
+            const res = await fetch(`/api/post`, {
+              method: 'put',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body,
+            })
+
+            if (!res.ok) throw res
+            const data = await res.json()
+            return redirect(`/main/${id}`)
           },
         },
         {
           path: 'post',
           element: <Wiki />,
           action: wikiAction,
-          loader: async ({ request }) => {
-            // TODO edit 동작시 미리 fetch 실행해야함
-            const res = await fetch('/api/post/mypost')
-            const data = await res.json()
-
-            return data
-          },
         },
         {
           path: 'mywiki',
@@ -117,14 +158,23 @@ const router = createBrowserRouter(
     {
       path: '/profile',
       element: <Profile />,
-      action: async ({ request }) => {
-        const body = await request.formData()
-        const res = await fetch('/api/login', {
-          method: 'post',
-          body,
+      loader: async ({ request }) => {
+        const res = await fetch('/api/profile/detail', {
+          method: 'get',
         })
-        return { data: '로그인!' }
+
+        const profileData = await res.json()
+
+        return profileData
       },
+      // action: async ({ request }) => {
+      //   const body = await request.formData()
+      //   const res = await fetch('/api/login', {
+      //     method: 'post',
+      //     body,
+      //   })
+      //   return { data: '로그인!' }
+      // },
     },
   ],
   { basename: '/' }

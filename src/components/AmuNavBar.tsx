@@ -92,7 +92,7 @@ export default function AmuNavBar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="#"
+                            to="/profile"
                             className={classNames(
                               active
                                 ? 'bg-gray-100 text-gray-900'

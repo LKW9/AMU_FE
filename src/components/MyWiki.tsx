@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, redirect } from 'react-router-dom'
 
-function handleEdit(id: string) {
+async function handleEdit(id: string) {
   console.log('$$ edit!')
   // TODO edit
+  redirect(`/main/post/${id}`)
 }
 
 async function handleDelete(id: string) {
@@ -38,15 +39,17 @@ export default function MyWiki({ wiki }: any) {
             </h1>
           </Link>
           <div className="flex items-center justify-center ml-3">
-            <span
-              className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded"
-              onClick={(e) => {
-                e.preventDefault()
-                handleEdit(wiki.id)
-              }}
-            >
-              Edit
-            </span>
+            <Link to={`/main/post/${wiki.id}`}>
+              <span
+                className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded"
+                // onClick={(e) => {
+                //   e.preventDefault()
+                //   handleEdit(wiki.id)
+                // }}
+              >
+                Edit
+              </span>
+            </Link>
             <span
               className="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded"
               onClick={(e) => {

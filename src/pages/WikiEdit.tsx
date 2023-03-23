@@ -23,7 +23,7 @@ export default function WikiEdit() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                 placeholder="Type wiki title"
                 required
-                value={}
+                value={data.title}
               />
             </div>
 
@@ -40,6 +40,7 @@ export default function WikiEdit() {
                 rows={8}
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 "
                 placeholder="Your description here"
+                value={data.text}
               ></textarea>
             </div>
           </div>
