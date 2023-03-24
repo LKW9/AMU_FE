@@ -1,126 +1,197 @@
+import { Button } from 'flowbite-react'
 import { useState } from 'react'
-import { Form, Link, redirect } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Timer from '../components/Timer'
+import { removeCookie } from '../util/Cookie'
 
 export default function Withdrawal() {
+  const [isVerified, setIsVerified] = useState(false)
+  const [isSended, setIsSended] = useState(false)
+  const [email, setEmail] = useState('')
+  const [code, setCode] = useState('')
   const [password, setPassword] = useState('')
-  async function handleWithdrawl(e: any) {
-    const body = JSON.stringify({ password })
 
-    await fetch('/api/auth/withdrawal', {
+  const navigate = useNavigate()
+
+  async function handleSendEmail(e: any) {
+    e.preventDefault()
+
+    const res = await fetch('/api/auth/email', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+
+    if (!res.ok) throw res
+
+    setIsSended(true)
+    setIsVerified(false)
+  }
+
+  async function handleVerifyEmail(e: any) {
+    e.preventDefault()
+
+    const body = { email, code }
+
+    const res = await fetch('/api/auth/verifying', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    if (!res.ok) throw res
+
+    setIsVerified(true)
+    setIsSended(false)
+  }
+
+  async function handleWithdrawl(e: any) {
+    e.preventDefault()
+
+    const body = { password }
+
+    const res = await fetch('/api/auth/withdrawal', {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',
       },
-      body,
+      body: JSON.stringify(body),
     })
 
-    return redirect('/')
-  }
-  return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="container flex items-center min-h-screen px-6 py-12 mx-auto">
-        <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-            Are you sure you want to leave?
-          </h1>
-          <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-            Deleting your account will permanently remove all associated data
-            and information, so please contact our support team if you have any
-            issues before proceeding.
-          </p>
+    if (!res.ok) throw res
 
-          <Form className="flex flex-col lg:mt-8 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 30 24"
-                  strokeWidth="1"
-                  stroke="gray"
-                  className="w-6 h-6"
+    removeCookie()
+    sessionStorage.clear()
+    
+    navigate('/')
+  }
+
+  return (
+    <section className="bg-gray-50">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <Link
+          to="/"
+          className="flex items-center mb-6 text-2xl font-semibold text-gray-900"
+        >
+          <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl">
+            AMU <span className="text-blue-500 ">Wiki</span>
+          </h1>
+        </Link>
+        <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+              Withdraw
+            </h1>
+            <div className="space-y-4 md:space-y-6">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                  Your email
+                </label>
+                <div className="flex">
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="name@company.com"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
-                </svg>
+                  <Button
+                    type="button"
+                    onClick={handleSendEmail}
+                    className="ml-2"
+                  >
+                    Send
+                  </Button>
+                </div>
               </div>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 w-11/12"
-                placeholder="amuwiki@amuwiki.com"
-                onChange={(e) => {
-                  e.preventDefault()
-                  setPassword(e.target.value)
-                }}
-              />
+              {isSended ? (
+                <div>
+                  <label
+                    htmlFor="code"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Verification code{' '}
+                    {isVerified ? <></> : <Timer delayResend="180" />}
+                  </label>
+                  <div className="flex">
+                    <input
+                      type="text"
+                      name="code"
+                      id="code"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      onChange={(e) => setCode(e.target.value)}
+                      required
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleVerifyEmail}
+                      className="ml-2"
+                    >
+                      Verify
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              {isVerified ? (
+                <>
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="••••••••"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      required
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="confirm-password"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Confirm password
+                    </label>
+                    <input
+                      type="password"
+                      name="confirm-password"
+                      id="confirm-password"
+                      placeholder="••••••••"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      required
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    onClick={handleWithdrawl}
+                  >
+                    Withdraw
+                  </Button>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
-            <div>
-              <a
-                type="submit"
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleWithdrawl(e)
-                }}
-                className="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100"
-              >
-                Verify
-              </a>
-            </div>
-          </Form>
-          <Form className="flex flex-col lg:mt-8 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-            <div className="relative mb-6">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 30 24"
-                  strokeWidth="1"
-                  stroke="gray"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-                placeholder="Verification code"
-                onChange={(e) => {
-                  e.preventDefault()
-                  setPassword(e.target.value)
-                }}
-              />
-            </div>
-            <div>
-              <a
-                type="submit"
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleWithdrawl(e)
-                }}
-                className="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100"
-              >
-                Leave now
-              </a>
-            </div>
-          </Form>
-          <Link
-            to="/"
-            className="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center bg-blue-700 text-white rounded-lg border hover:bg-blue-800 focus:ring-4 focus:ring-blue-300"
-          >
-            Go back home
-          </Link>
+          </div>
         </div>
       </div>
     </section>

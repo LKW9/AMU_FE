@@ -18,7 +18,7 @@ export default async function loginAction({ request }: ActionFunctionArgs) {
         body: JSON.stringify(body),
       })
 
-      if (!res.ok) throw res
+      if (!res.ok) return redirect('/')
 
       const encodedCookie = await res.text()
       const decodedCookie = decodeURI(encodedCookie)
@@ -39,7 +39,7 @@ export default async function loginAction({ request }: ActionFunctionArgs) {
       return redirect('/')
     }
     default: {
-      throw new Response('', { status: 405 })
+      return redirect('/')
     }
   }
 }

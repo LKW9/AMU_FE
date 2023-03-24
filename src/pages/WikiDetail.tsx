@@ -12,21 +12,7 @@ export default function WikiDetail() {
               {data.title}
             </h1>
           </header>
-          {/* <p className="lead">
-            Flowbite is an open-source library of UI components built with the
-            utility-first classes from Tailwind CSS. It also includes
-            interactive elements such as dropdowns, modals, datepickers.
-          </p> */}
           <p>{data.text}</p>
-          {/* <p>
-            But then I found a{' '}
-            <a href="https://flowbite.com">
-              component library based on Tailwind CSS called Flowbite
-            </a>
-            . It comes with the most commonly used UI components, such as
-            buttons, navigation bars, cards, form elements, and more which are
-            conveniently built with the utility classes from Tailwind CSS.
-          </p> */}
         </article>
       </div>
     </main>

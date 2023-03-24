@@ -23,7 +23,6 @@ export default function UserMenu() {
       const data = await fetch('/api/profile/image')
       const blobData = await data.blob()
       const objectURL = URL.createObjectURL(blobData)
-      console.log('$$ objectURL', objectURL)
 
       imgRef.current.src = objectURL
     }

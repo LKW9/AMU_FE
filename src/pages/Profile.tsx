@@ -1,8 +1,10 @@
 import { Button } from 'flowbite-react'
 import { useEffect, useState } from 'react'
-import { Form, Link, useLoaderData } from 'react-router-dom'
+import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 
 export default function Profile() {
+  const navigation = useNavigate()
+
   async function handleUpdatePicture(e: any) {
     e.preventDefault()
 
@@ -42,6 +44,10 @@ export default function Profile() {
       },
       body: JSON.stringify({ nickname }),
     })
+
+    sessionStorage.setItem('nickname', nickname)
+
+    navigation('/')
   }
 
   const data = useLoaderData() as unknown as any
@@ -106,7 +112,7 @@ export default function Profile() {
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     {preview ? (
-                      <img className="scale-50" src={preview}></img>
+                      <img className="h-20 w-20" src={preview}></img>
                     ) : (
                       <>
                         <svg

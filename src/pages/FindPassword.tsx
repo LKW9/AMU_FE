@@ -1,6 +1,6 @@
 import { Button } from 'flowbite-react'
 import { useState } from 'react'
-import { Link, Form, redirect } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Timer from '../components/Timer'
 
 export default function FindPassword() {
@@ -9,6 +9,8 @@ export default function FindPassword() {
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
   const [password, setPassword] = useState('')
+
+  const navigate = useNavigate()
 
   async function handleSendEmail(e: any) {
     e.preventDefault()
@@ -61,7 +63,7 @@ export default function FindPassword() {
 
     if (!res.ok) throw res
 
-    redirect('/')
+    navigate('/login')
   }
 
   return (
