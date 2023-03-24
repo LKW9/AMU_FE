@@ -1,23 +1,25 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef } from 'react'
-import { Link, redirect } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getCookie, removeCookie } from '../util/Cookie'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-function handleLogout() {
-  removeCookie()
-  sessionStorage.clear()
-  location.reload()
-}
-
 export default function UserMenu() {
   const isLoginUser = getCookie()
   const nickname = sessionStorage.getItem('nickname')
   const imgRef = useRef<any>()
+  const navigate = useNavigate()
 
+  function handleLogout() {
+    removeCookie()
+    sessionStorage.clear()
+
+    navigate('/')
+    location.reload()
+  }
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetch('/api/profile/image')
