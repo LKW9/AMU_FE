@@ -1,23 +1,25 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef } from 'react'
-import { Link, redirect } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getCookie, removeCookie } from '../util/Cookie'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-function handleLogout() {
-  removeCookie()
-  sessionStorage.clear()
-  location.reload()
-}
-
 export default function UserMenu() {
   const isLoginUser = getCookie()
   const nickname = sessionStorage.getItem('nickname')
   const imgRef = useRef<any>()
+  const navigate = useNavigate()
 
+  function handleLogout() {
+    removeCookie()
+    sessionStorage.clear()
+
+    navigate('/')
+    location.reload()
+  }
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetch('/api/profile/image')
@@ -47,7 +49,7 @@ export default function UserMenu() {
           <Link to="/login" className="px-2 sm:px-4 py-2.5">
             <button
               type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
             >
               Log in
             </button>
