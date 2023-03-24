@@ -5,6 +5,7 @@ import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import { ErrorBoundary } from './pages/ErrorBoundary'
+import FindPassword from './pages/FindPassword'
 import Login from './pages/Login'
 import MyWikiList from './pages/MyWikiList'
 import Profile from './pages/Profile'
@@ -14,6 +15,7 @@ import Wiki from './pages/Wiki'
 import WikiDetail from './pages/WikiDetail'
 import Withdrawal from './pages/Withdrawal'
 import loginAction from './routes/login'
+import resetPassrodAction from './routes/resetPassword'
 import Root from './routes/Root'
 import signupAction from './routes/signup'
 import wikiAction from './routes/wiki'
@@ -156,6 +158,11 @@ const router = createBrowserRouter(
       path: '/signup',
       element: <SignUp />,
       action: signupAction,
+    },
+    {
+      path: '/find',
+      element: <FindPassword />,
+      action: resetPassrodAction,
     },
     { path: '/withdrawal', element: <Withdrawal /> },
     {

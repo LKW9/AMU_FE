@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import { Link, redirect } from 'react-router-dom'
 import { getCookie, removeCookie } from '../util/Cookie'
 
@@ -16,12 +16,34 @@ function handleLogout() {
 export default function UserMenu() {
   const isLoginUser = getCookie()
   const nickname = sessionStorage.getItem('nickname')
+  const imgRef = useRef<any>()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch('/api/profile/image')
+      const blobData = await data.blob()
+      const objectURL = URL.createObjectURL(blobData)
+      console.log('$$ objectURL', objectURL)
+
+      imgRef.current.src = objectURL
+    }
+
+    fetchData().catch(console.error)
+    // URL.revokeObjectURL(objectURL)
+  }, [])
 
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 hover:bg-gray-50">
         {isLoginUser ? (
-          <span>Hello, {nickname}!</span>
+          <div className="flex flex-row gap-2 items-center">
+            <img
+              className="w-10 h-10 rounded-full "
+              ref={imgRef}
+              id="profile-img"
+            ></img>
+            <span>Hello, {nickname}!</span>
+          </div>
         ) : (
           <Link to="/login" className="px-2 sm:px-4 py-2.5">
             <button

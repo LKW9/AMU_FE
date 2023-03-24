@@ -66,11 +66,11 @@ export default function Profile() {
 
   return (
     <>
-      <section className="bg-gray-50 min-h-screen">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <section className="bg-gray-50">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <Link
             to="/"
-            className="flex items-center mb-6 text-2xl font-semibold text-gray-900"
+            className="flex items-center m-6 text-2xl font-semibold text-gray-900"
           >
             <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl">
               AMU <span className="text-blue-500 ">Wiki</span>
@@ -105,7 +105,6 @@ export default function Profile() {
                   className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    Your Picture
                     {preview ? (
                       <img className="scale-50" src={preview}></img>
                     ) : (
@@ -119,9 +118,9 @@ export default function Profile() {
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                           ></path>
                         </svg>

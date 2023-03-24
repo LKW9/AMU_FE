@@ -72,6 +72,12 @@ export default function Login() {
                     </label>
                   </div>
                 </div>
+                <Link
+                  to="/find"
+                  className="text-sm font-medium text-blue-600 hover:underline"
+                >
+                  Forgot password?
+                </Link>
               </div>
               <Button
                 type="submit"

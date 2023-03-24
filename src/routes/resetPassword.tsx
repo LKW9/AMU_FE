@@ -1,16 +1,16 @@
-import { Cookies } from 'react-cookie'
 import { ActionFunctionArgs, redirect } from 'react-router-dom'
 
-export default async function loginAction({ request }: ActionFunctionArgs) {
-  const cookie = new Cookies()
+export default async function resetPassrodAction({
+  request,
+}: ActionFunctionArgs) {
   switch (request.method) {
-    case 'POST': {
+    case 'PUT': {
       let formData = await request.formData()
       const email = formData.get('email')
       const password = formData.get('password')
       const body = { email, password }
 
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth/changepassword', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -18,19 +18,9 @@ export default async function loginAction({ request }: ActionFunctionArgs) {
         body: JSON.stringify(body),
       })
 
-      if (!res.ok) throw res
+      if (!res.ok) return location.reload()
 
-      const encodedCookie = await res.text()
-      const decodedCookie = decodeURI(encodedCookie)
-
-      cookie.set('cookie', decodedCookie, { path: '/' })
-
-      const userProfile = await fetch('/api/profile/detail')
-      const data = await userProfile.json()
-
-      sessionStorage.setItem('nickname', data.nickname)
-
-      return redirect('/')
+      return redirect('/login')
     }
     case 'DELETE': {
       return redirect('/')

@@ -29,20 +29,63 @@ export default function Withdrawal() {
             issues before proceeding.
           </p>
 
-          <Form className="flex flex-col my-4 lg:mt-8 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+          <Form className="flex flex-col lg:mt-8 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 30 24"
+                  strokeWidth="1"
+                  stroke="gray"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 w-11/12"
+                placeholder="amuwiki@amuwiki.com"
+                onChange={(e) => {
+                  e.preventDefault()
+                  setPassword(e.target.value)
+                }}
+              />
+            </div>
+            <div>
+              <a
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleWithdrawl(e)
+                }}
+                className="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100"
+              >
+                Verify
+              </a>
+            </div>
+          </Form>
+          <Form className="flex flex-col lg:mt-8 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
             <div className="relative mb-6">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 30 24"
-                  stroke-width="1"
+                  strokeWidth="1"
                   stroke="gray"
                   className="w-6 h-6"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
                   />
                 </svg>
@@ -51,8 +94,8 @@ export default function Withdrawal() {
                 type="password"
                 id="password"
                 name="password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Your password"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                placeholder="Verification code"
                 onChange={(e) => {
                   e.preventDefault()
                   setPassword(e.target.value)
