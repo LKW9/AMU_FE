@@ -9,14 +9,12 @@ export default function Profile() {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0])
     }
+
     const formData = new FormData()
-    formData.append('file', preview)
+    formData.append('file', e.target.files[0])
 
     const res = await fetch('/api/profile/upload', {
       method: 'put',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
       body: formData,
     })
   }
@@ -47,7 +45,6 @@ export default function Profile() {
   }
 
   const data = useLoaderData() as unknown as any
-  console.log('$$ 유저 프로필', data)
   const [nickname, setNickname] = useState('')
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -69,7 +66,7 @@ export default function Profile() {
 
   return (
     <>
-      <section className="bg-gray-50">
+      <section className="bg-gray-50 min-h-screen">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <Link
             to="/"
@@ -200,20 +197,15 @@ export default function Profile() {
               >
                 Update Password
               </Button>
-            </div>
-          </div>
-
-          <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 my-3">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <Button
-                id="deleteButton"
-                data-modal-target="deleteModal"
-                data-modal-toggle="deleteModal"
-                type="button"
-                className="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Withdrawal
-              </Button>
+              <p className="text-sm font-light text-gray-500">
+                Want to delete your account?{' '}
+                <Link
+                  to="/withdrawal"
+                  className="font-medium text-primary-600 hover:underline"
+                >
+                  Withdraw here
+                </Link>
+              </p>
             </div>
           </div>
         </div>
@@ -242,7 +234,7 @@ export default function Profile() {
                 <path
                   fill-rule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
               <span className="sr-only">Close modal</span>
@@ -272,7 +264,7 @@ export default function Profile() {
                 No, cancel
               </button>
               <button
-                type="submit"
+                type="button"
                 className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900"
               >
                 Yes, I'm sure

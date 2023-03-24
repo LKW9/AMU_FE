@@ -12,6 +12,7 @@ import { SearchList } from './pages/SearchList'
 import SignUp from './pages/SignUp'
 import Wiki from './pages/Wiki'
 import WikiDetail from './pages/WikiDetail'
+import Withdrawal from './pages/Withdrawal'
 import loginAction from './routes/login'
 import Root from './routes/Root'
 import signupAction from './routes/signup'
@@ -22,19 +23,20 @@ const router = createBrowserRouter(
     {
       path: '/',
       element: <App />,
-      // loader: async ({ req, res }) => {
-      //   // TODO data before rendering (회원가입 정보 수정시 미리 회원 정보 불러오기 등)
-      //   return
-      // },
-      action: async ({ request }) => {
-        // TODO mutation data (form 데이터 전송 뒤 등)
-        return
-      },
       errorElement: <ErrorBoundary />,
     },
     {
       path: '/main',
       element: <Root />,
+      loader: async ({ request }) => {
+        const res = await fetch('/api/profile/detail', {
+          method: 'get',
+        })
+
+        const profileData = await res.json()
+        sessionStorage.setItem('nickname', profileData.nickname)
+        return profileData
+      },
       children: [
         {
           path: 'search',
@@ -155,6 +157,7 @@ const router = createBrowserRouter(
       element: <SignUp />,
       action: signupAction,
     },
+    { path: '/withdrawal', element: <Withdrawal /> },
     {
       path: '/profile',
       element: <Profile />,
@@ -167,14 +170,6 @@ const router = createBrowserRouter(
 
         return profileData
       },
-      // action: async ({ request }) => {
-      //   const body = await request.formData()
-      //   const res = await fetch('/api/login', {
-      //     method: 'post',
-      //     body,
-      //   })
-      //   return { data: '로그인!' }
-      // },
     },
   ],
   { basename: '/' }

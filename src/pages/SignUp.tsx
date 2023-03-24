@@ -1,5 +1,5 @@
 import { Button } from 'flowbite-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Form, Link } from 'react-router-dom'
 
 export default function SignUp() {
@@ -8,16 +8,7 @@ export default function SignUp() {
   const [code, setCode] = useState('')
 
   async function handleSendEmail(e: any) {
-    console.log('##', e)
     e.preventDefault()
-    console.log('email', email)
-
-    // const [isLoading, setIsLoading] = useState(false);
-    // prevent redirect
-
-    // setIsLoading(true);
-
-    // do something asynchronous that takes time, this function is just an example
     const res = await fetch('/api/signup/email', {
       method: 'post',
       headers: {
@@ -25,19 +16,12 @@ export default function SignUp() {
       },
       body: JSON.stringify({ email }),
     })
-
-    console.log('$res', res)
-
-    // reset form and loading state
-    // setEmail('');
-    // setIsLoading(false);
   }
 
   async function handleVerifyEmail(e: any) {
     e.preventDefault()
 
     const body = { email, code }
-    console.log('$$ body', body)
 
     const res = await fetch('/api/signup/verifying', {
       method: 'post',
@@ -46,8 +30,6 @@ export default function SignUp() {
       },
       body: JSON.stringify(body),
     })
-
-    console.log('$res', res)
   }
 
   return (
@@ -88,7 +70,11 @@ export default function SignUp() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
-                  <Button type="button" onClick={handleSendEmail}>
+                  <Button
+                    type="button"
+                    onClick={handleSendEmail}
+                    className="ml-2"
+                  >
                     Verify
                   </Button>
                 </div>
@@ -109,7 +95,11 @@ export default function SignUp() {
                     onChange={(e) => setCode(e.target.value)}
                     required
                   />
-                  <Button type="button" onClick={handleVerifyEmail}>
+                  <Button
+                    type="button"
+                    onClick={handleVerifyEmail}
+                    className="ml-2"
+                  >
                     Confirm
                   </Button>
                 </div>

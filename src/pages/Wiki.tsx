@@ -15,7 +15,7 @@ export default function Wiki() {
           {data ? <>Edit</> : <>New</>} Wiki
         </h2>
         <Form
-          action={data ? `/main/post/${data._id}` : '/main/detail'}
+          action={data ? `/main/post/${data._id}` : '/main/post'}
           method={data ? 'put' : 'post'}
         >
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">

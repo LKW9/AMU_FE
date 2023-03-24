@@ -1,28 +1,35 @@
-import { Alert } from 'flowbite-react'
-import { Form } from 'react-router-dom'
-import { getToken } from '../hooks/LoginHook'
-import { Cookies, useCookies } from 'react-cookie'
-import { getCookie } from '../util/Cookie'
+import { Form, Link } from 'react-router-dom'
+import UserMenu from './UserMenu'
 
 export default function Home() {
-  const loginCookie = getCookie()
-
-  // const decodedCookie = decodeURI(
-  //   'Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiZGtkbGRtbHJtc3BAbmF2ZXIuY29tIn0sImlhdCI6MTY3OTQ5MTUxNCwiZXhwIjoxNjc5NTc3OTE0fQ.V3eueT9z0xwaSJdZFeV1NRtpW2HJmVku39CovziZhEM'
-  // )
-
-  // setCookie('cookie', decodedCookie, { path: '/'})
-
-  // const cookieValue = getCookie('cookieName');
+  const nickname = sessionStorage.getItem('nickname')
 
   return (
     <div>
-      <span>로그인 상태: {loginCookie}</span>
-      <section className="bg-white h-screen">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <h1 className="text-6xl font-semibold text-center text-gray-800 capitalize mb-10">
-            AMU <span className="text-blue-500 ">Wiki</span>
-          </h1>
+      <div className="container flex flex-wrap flex-row-reverse items-center justify-between mx-auto">
+        {nickname ? (
+          <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded ">
+            <UserMenu />
+          </nav>
+        ) : (
+          <Link to="/login" className="px-2 sm:px-4 py-2.5">
+            <button
+              type="button"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Log in
+            </button>
+          </Link>
+        )}
+      </div>
+
+      <section className="bg-white min-h-screen">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 my-10">
+          <Link to="/">
+            <h1 className="text-6xl font-semibold text-center text-gray-800 capitalize mb-10">
+              AMU <span className="text-blue-500 ">Wiki</span>
+            </h1>
+          </Link>
           <Form
             className="flex justify-center w-screen"
             action="/main/search"

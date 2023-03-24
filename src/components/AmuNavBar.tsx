@@ -1,22 +1,8 @@
-import { Fragment, useState } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Form, Link } from 'react-router-dom'
-import { Menu, Transition } from '@headlessui/react'
 import { Button } from 'flowbite-react'
-import { getCookie, removeCookie } from '../util/Cookie'
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
-
-function handleLogout() {
-  removeCookie()
-}
+import UserMenu from './UserMenu'
 
 export default function AmuNavBar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const isLoginUser = getCookie()
-
   return (
     <div className="sticky top-0 mt-5 mb-10">
       <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded ">
@@ -55,123 +41,7 @@ export default function AmuNavBar() {
               <Button type="submit" className="hidden" />
             </Form>
           </div>
-
-          <Menu as="div" className="relative inline-block text-left">
-            <div>
-              <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 hover:bg-gray-50">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </Menu.Button>
-            </div>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1 divide-y">
-                  {isLoginUser ? (
-                    <>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            to="/profile"
-                            className={classNames(
-                              active
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-700',
-                              'block px-4 py-2 text-sm'
-                            )}
-                          >
-                            Profile
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            to="/main/post"
-                            className={classNames(
-                              active
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-700',
-                              'block px-4 py-2 text-sm'
-                            )}
-                          >
-                            New Wiki
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="/main/mywiki"
-                            className={classNames(
-                              active
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-700',
-                              'block px-4 py-2 text-sm'
-                            )}
-                          >
-                            My Wiki
-                          </a>
-                        )}
-                      </Menu.Item>{' '}
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                  <Menu.Item>
-                    {({ active }) =>
-                      isLoginUser ? (
-                        <Link
-                          to="/"
-                          onClick={handleLogout}
-                          className={classNames(
-                            active
-                              ? 'bg-gray-100 text-gray-900'
-                              : 'text-gray-700',
-                            'block w-full px-4 py-2 text-left text-sm'
-                          )}
-                        >
-                          Log out
-                        </Link>
-                      ) : (
-                        <Link
-                          to="/login"
-                          className={classNames(
-                            active
-                              ? 'bg-gray-100 text-gray-900'
-                              : 'text-gray-700',
-                            'block w-full px-4 py-2 text-left text-sm'
-                          )}
-                        >
-                          Log in
-                        </Link>
-                      )
-                    }
-                  </Menu.Item>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          <UserMenu />
         </div>
       </nav>
     </div>

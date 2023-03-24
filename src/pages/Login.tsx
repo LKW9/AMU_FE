@@ -1,9 +1,5 @@
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react'
-import { Form, Link, useFormAction } from 'react-router-dom'
-import AmuNavBar from '../components/AmuNavBar'
-import loginAction from '../routes/login'
-
-
+import { Button } from 'flowbite-react'
+import { Form, Link } from 'react-router-dom'
 
 export default function Login() {
   return (
@@ -76,12 +72,6 @@ export default function Login() {
                     </label>
                   </div>
                 </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline"
-                >
-                  Forgot password?
-                </a>
               </div>
               <Button
                 type="submit"
