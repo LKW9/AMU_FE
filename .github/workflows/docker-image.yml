@@ -2,7 +2,7 @@ name: FE Docker Hub Image
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] 
   pull_request:
     branches: [ "main" ]
 
