@@ -4,7 +4,7 @@ import UserMenu from './UserMenu'
 
 export default function AmuNavBar() {
   return (
-    <div className="sticky top-0 mt-5 mb-10">
+    <div className="sticky top-0">
       <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded ">
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <div>

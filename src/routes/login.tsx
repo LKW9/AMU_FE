@@ -25,6 +25,8 @@ export default async function loginAction({ request }: ActionFunctionArgs) {
 
       const userProfile = await fetch('/api/profile/detail')
       const data = await userProfile.json()
+      console.log('$$$ 로그인 후 프로필', data)
+      
 
       sessionStorage.setItem('nickname', data.nickname)
 

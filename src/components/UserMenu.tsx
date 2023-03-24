@@ -19,22 +19,20 @@ export default function UserMenu() {
 
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 hover:bg-gray-50">
-          {isLoginUser ? (
-            <span>Hello, {nickname}!</span>
-          ) : (
-            <Link to="/login" className="px-2 sm:px-4 py-2.5">
-              <button
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              >
-                Log in
-              </button>
-            </Link>
-          )}
-        </Menu.Button>
-      </div>
+      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 hover:bg-gray-50">
+        {isLoginUser ? (
+          <span>Hello, {nickname}!</span>
+        ) : (
+          <Link to="/login" className="px-2 sm:px-4 py-2.5">
+            <button
+              type="button"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Log in
+            </button>
+          </Link>
+        )}
+      </Menu.Button>
 
       <Transition
         as={Fragment}

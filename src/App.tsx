@@ -1,5 +1,4 @@
-import Home from './components/Home'
-import { getToken } from './hooks/LoginHook'
+import Home from './pages/Home'
 
 function App() {
   return (
