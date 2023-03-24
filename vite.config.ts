@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import postcss from './postcss.config.cjs'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import postcss from "./postcss.config.cjs";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,11 +8,11 @@ export default defineConfig({
   css: { postcss },
   server: {
     proxy: {
-      '/api': {
-        target: 'https://amuwiki.co.kr',
+      "/api": {
+        target: "http://backend:3000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
-})
+});
