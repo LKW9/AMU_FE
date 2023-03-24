@@ -6,4 +6,13 @@ import postcss from './postcss.config.cjs'
 export default defineConfig({
   plugins: [react()],
   css: { postcss },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://amuwiki.co.kr',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })

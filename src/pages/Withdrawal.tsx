@@ -1,18 +1,22 @@
 import { Button } from 'flowbite-react'
 import { useState } from 'react'
-import { Form, Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Timer from '../components/Timer'
+import { removeCookie } from '../util/Cookie'
 
-export default function SignUp() {
+export default function Withdrawal() {
   const [isVerified, setIsVerified] = useState(false)
   const [isSended, setIsSended] = useState(false)
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
+  const [password, setPassword] = useState('')
+
+  const navigate = useNavigate()
 
   async function handleSendEmail(e: any) {
     e.preventDefault()
 
-    const res = await fetch('/api/signup/email', {
+    const res = await fetch('/api/auth/email', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -31,7 +35,7 @@ export default function SignUp() {
 
     const body = { email, code }
 
-    const res = await fetch('/api/signup/verifying', {
+    const res = await fetch('/api/auth/verifying', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -43,6 +47,27 @@ export default function SignUp() {
 
     setIsVerified(true)
     setIsSended(false)
+  }
+
+  async function handleWithdrawl(e: any) {
+    e.preventDefault()
+
+    const body = { password }
+
+    const res = await fetch('/api/auth/withdrawal', {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    if (!res.ok) throw res
+
+    removeCookie()
+    sessionStorage.clear()
+    
+    navigate('/')
   }
 
   return (
@@ -59,13 +84,9 @@ export default function SignUp() {
         <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-              Create and account
+              Withdraw
             </h1>
-            <Form
-              className="space-y-4 md:space-y-6"
-              action="/signup"
-              method="post"
-            >
+            <div className="space-y-4 md:space-y-6">
               <div>
                 <label
                   htmlFor="email"
@@ -127,21 +148,6 @@ export default function SignUp() {
                 <>
                   <div>
                     <label
-                      htmlFor="nickname"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Your nickname
-                    </label>
-                    <input
-                      type="text"
-                      name="nickname"
-                      id="nickname"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
                       htmlFor="password"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
@@ -154,6 +160,7 @@ export default function SignUp() {
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       required
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div>
@@ -172,52 +179,18 @@ export default function SignUp() {
                       required
                     />
                   </div>
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="terms"
-                        aria-describedby="terms"
-                        type="checkbox"
-                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
-                        required
-                      />
-                    </div>
-                    <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="terms"
-                        className="font-light text-gray-500"
-                      >
-                        I accept the{' '}
-                        <a
-                          className="font-medium text-primary-600 hover:underline"
-                          href="#"
-                        >
-                          Terms and Conditions
-                        </a>
-                      </label>
-                    </div>
-                  </div>
                   <Button
-                    type="submit"
+                    type="button"
                     className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    onClick={handleWithdrawl}
                   >
-                    Create an account
+                    Withdraw
                   </Button>
                 </>
               ) : (
                 <></>
               )}
-
-              <p className="text-sm font-light text-gray-500">
-                Already have an account?{' '}
-                <Link
-                  to="/login"
-                  className="font-medium text-primary-600 hover:underline"
-                >
-                  Login here
-                </Link>
-              </p>
-            </Form>
+            </div>
           </div>
         </div>
       </div>

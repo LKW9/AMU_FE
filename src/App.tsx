@@ -1,8 +1,8 @@
-import Home from './components/Home'
+import Home from './pages/Home'
 
 function App() {
   return (
-    <div className="h-screen max-w-screen">
+    <div className="max-w-screen">
       <Home />
     </div>
   )

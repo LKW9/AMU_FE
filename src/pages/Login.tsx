@@ -1,6 +1,5 @@
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react'
+import { Button } from 'flowbite-react'
 import { Form, Link } from 'react-router-dom'
-import AmuNavBar from '../components/AmuNavBar'
 
 export default function Login() {
   return (
@@ -19,7 +18,11 @@ export default function Login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2x">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <Form
+              className="space-y-4 md:space-y-6"
+              method="post"
+              action="/login"
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -60,7 +63,7 @@ export default function Login() {
                       aria-describedby="remember"
                       type="checkbox"
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
-                      required
+                      required={false}
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -69,12 +72,12 @@ export default function Login() {
                     </label>
                   </div>
                 </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline"
+                <Link
+                  to="/find"
+                  className="text-sm font-medium text-blue-600 hover:underline"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <Button
                 type="submit"
@@ -91,7 +94,7 @@ export default function Login() {
                   Sign up
                 </Link>
               </p>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
