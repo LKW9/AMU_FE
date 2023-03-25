@@ -38,7 +38,7 @@
 💁🏻‍♂️ 팀원 목록표
 
 
-![화면 캡처 2023-03-18 215303](https://user-images.githubusercontent.com/117289578/226107207-d9e1d31d-ff6d-4c8b-8cec-b86b57883213.png)
+![image](https://user-images.githubusercontent.com/92284361/227669810-8dfee9f2-c69c-4822-b17f-17ac454fcb2b.png)
 
 
 </aside>
