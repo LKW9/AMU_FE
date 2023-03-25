@@ -48,10 +48,14 @@
 
 <aside>
 💁🏻‍♂️ elasticSearch 를 사용한 NoSQL 기반의 데이터 검색과 
-서버 이중화와 보안까지 고려해 설계하여 만든 위키백과의 한 종류 입니다.
-그리고, 기존 위키백과 사이트와의 차별점을 둔 부분은 
-새로운 위백과 데이터를 import 할 수 있도록 하였습니다.
+서버 이중화와 로드 밸런싱, 보안까지 고려해 설계하여 만든 위키백과의 한 종류 입니다.
 
+기존 위키백과 사이트와의 차별점을 둔 부분은 
+백엔드에서 Fastify - mongodb - elasticSearch, 
+프론트엔드에서  react - vite 를 활용해 속도 개선에 주로 집중 했으며,
+기존의 위키 백과처럼 검색 시에 하나만 검색해오는게 아니라 구글처럼 키워드와
+관련된 데이터를 가져오고 고를 수 있게 만들었습니다.
+또한, 새로운 위키백과 데이터를 import 할 수 있도록 하였습니다.
 </aside>
 
 ## 와이어프레임
@@ -89,9 +93,7 @@
 
 
 - **npm**
-    
-   "FrontEnd"
-
+ ```
 "@emotion/react": "^11.10.6",
 "@emotion/styled": "^11.10.6",
 "@headlessui/react": "^1.7.13",
@@ -101,7 +103,7 @@
 "react-cookie": "^4.1.1",
 "react-dom": "^18.2.0",
 "react-router-dom": "^6.9.0"
-    
+```    
 
 - **Code Review Time**
     - 아침조회 (오전 09시)
@@ -134,82 +136,14 @@
 ## **기능구현 분담**
 
 <aside>
-🙋🏻‍♂️  Dividing the implementation of Infrastructure features.
-
-- 이기웅
-    - CI / CD
-        
-        GitHub Action
-        
-    - AWS
-
-- 정붕기
-    - Virtualization Technology
-        
-        Docker
-        
-    - ElasticSearch
+🙋🏻‍♂️  Implementation of front-end functions.
     
-    - AWS
-    
-- 주재훈
-    - MongoDB manager
-        
-    - AWS
-        
-- 한창윤
-    - Virtualization Technology
-        
-        Docker
-        
-    - ElasticSearch
-    
-    - AWS
-    
-- 조현수
-    - Virtualization Technology
-        
-        Docker
-        
-    - Deployment
-        
-        EC2
-        
-    - AWS
-        
-        
-</aside>
-
-<aside>
-🙋🏻‍♂️ Dividing the implementation of Server features.
-
-- 이기웅
-   1. View user profile
-   2. Edit user profile - nickname, password
-   3. Upload profile photo
-   4. Edit profile photo
-    
-- 조현수
-   1. Retrieve a post
-   2. Create a post
-   3. Edit a post
-   4. Delete a post
-- 주재훈
-   1. Send email verification code
-   2. Verify email address
-   3. User signup
-   4. User login
-   5. User logout
-   6. User withdrawal
     
 - 정붕기
-    1. Elasticsearch
-    
-- 한창윤
-    1. Elasticsearch
-    
-</aside>
+    1. Vite+React
 
+        
+</aside>
 
 ## Architecture
 
