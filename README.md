@@ -18,11 +18,10 @@
 
 **5.프로그램 세팅 및 작업**
 
-**6. API**
+**6. 기능 구현**
 
-**7. 기능구현 분담**
+**7. 서버와 데이터베이스의 관계도**
 
-**8. 서버와 데이터베이스의 관계도**
 
 ---
 
@@ -123,17 +122,8 @@
 
 </aside>
 
-## API
 
-<aside>
-
-📃 API 표
-
-![화면 캡처 2023-03-23 162840](https://user-images.githubusercontent.com/117289578/227133318-d195ef6a-fdbd-4be9-848b-9c801b3b4a2a.png)
-
-</aside>
-
-## **기능구현 분담**
+## **기능구현**
 
 <aside>
 🙋🏻‍♂️  Implementation of front-end functions.
@@ -147,8 +137,7 @@
 
 ## Architecture
 
-![Lv1](https://user-images.githubusercontent.com/117289578/227130486-711e9829-f50f-45bd-a1ff-7dd39d2be208.png)
-
+![Lv1 (2)](https://user-images.githubusercontent.com/92284361/227669592-362a248a-d7be-4e48-b202-77f76d7c8ff6.png)
 
 
 ---
