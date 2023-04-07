@@ -6,8 +6,14 @@ import Timer from '../components/Timer'
 export default function SignUp() {
   const [isVerified, setIsVerified] = useState(false)
   const [isSended, setIsSended] = useState(false)
+
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
+  const passwordRegex =
+    /^(?=.*[!@#$%^&*()\-_=+{};:,<.>/?[\]\\\'\"`~])(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/
 
   async function handleSendEmail(e: any) {
     e.preventDefault()
@@ -78,7 +84,7 @@ export default function SignUp() {
                     type="email"
                     name="email"
                     id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 peer"
                     placeholder="name@company.com"
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -86,7 +92,7 @@ export default function SignUp() {
                   <Button
                     type="button"
                     onClick={handleSendEmail}
-                    className="ml-2"
+                    className="ml-2 peer-invalid:hidden"
                   >
                     Send
                   </Button>
@@ -106,14 +112,14 @@ export default function SignUp() {
                       type="text"
                       name="code"
                       id="code"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 peer/code"
                       onChange={(e) => setCode(e.target.value)}
                       required
                     />
                     <Button
                       type="button"
                       onClick={handleVerifyEmail}
-                      className="ml-2"
+                      className="ml-2 peer-invalid/code:hidden"
                     >
                       Verify
                     </Button>
@@ -153,8 +159,20 @@ export default function SignUp() {
                       id="password"
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      onChange={(e) => setPassword(e.target.value)}
                       required
                     />
+                    {!passwordRegex.test(password) && password.length > 0 ? (
+                      <p
+                        id="standard_error_help"
+                        className="mt-2 text-xs text-red-600 dark:text-red-400"
+                      >
+                        Passwords must be at least 8 characters long, contain
+                        special characters, numbers, and English.
+                      </p>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div>
                     <label
@@ -169,6 +187,7 @@ export default function SignUp() {
                       id="confirm-password"
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                       required
                     />
                   </div>
@@ -199,7 +218,10 @@ export default function SignUp() {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center {0 === 1 ? text-red}"
+                    disabled={
+                      password.length < 8 || password !== confirmPassword
+                    }
                   >
                     Create an account
                   </Button>
