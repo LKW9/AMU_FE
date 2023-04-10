@@ -137,7 +137,8 @@
 
 ## Architecture
 
-![Lv1 (2)](https://user-images.githubusercontent.com/92284361/227669592-362a248a-d7be-4e48-b202-77f76d7c8ff6.png)
+![Lv1_1](https://user-images.githubusercontent.com/92284361/230899719-f7243865-c5ab-4ca3-a269-84f12496e370.png)
+
 
 
 ---
